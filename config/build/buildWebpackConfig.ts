@@ -1,12 +1,13 @@
 import { resolve } from "path";
 import { Configuration } from "webpack";
+import { buildDevServer } from "./buildDevServer";
 // функции декомпозирующие вебпак конфиг
 import { buildLoaders } from "./buildLoaders";
 import { buildPlugins } from "./buildPlugins";
 import { buildResolvers } from "./buildResolvers";
 import { BuildOptions } from "./types/config";
 
-export function buildWebpackConfig({ paths, mode }: BuildOptions): Configuration {
+export function buildWebpackConfig({ isDev, paths, mode, port }: BuildOptions): Configuration {
     return {
         // production или development
         mode,
@@ -30,5 +31,10 @@ export function buildWebpackConfig({ paths, mode }: BuildOptions): Configuration
             rules: buildLoaders(),
         },
         resolve: buildResolvers(),
+        // создает соурсмэп чтобы сориентироваться в какой части бандла происходит ошибка
+        // в проде не нужны
+        devtool: isDev ? 'inline-source-map' : undefined,
+        // конфигурация дев сервера
+        devServer: isDev ? buildDevServer(port) : undefined,
     }
 }
