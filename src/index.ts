@@ -1,4 +1,4 @@
 import { someFunc } from "./test";
 
 
-someFunc(7)
+someFunc(9)
