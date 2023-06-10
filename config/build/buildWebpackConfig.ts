@@ -28,7 +28,7 @@ export function buildWebpackConfig({ isDev, paths, mode, port }: BuildOptions): 
         },
         plugins: buildPlugins(paths),
         module: {
-            rules: buildLoaders(),
+            rules: buildLoaders(isDev),
         },
         resolve: buildResolvers(),
         // создает соурсмэп чтобы сориентироваться в какой части бандла происходит ошибка
