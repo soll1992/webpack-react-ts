@@ -2,6 +2,13 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { RuleSetRule } from "webpack";
 
 export function buildLoaders(isDev: boolean): RuleSetRule[] {
+
+    // загрузка картинок svg
+    const svgLoader = {
+        test: /\.svg$/i,
+        use: ["@svgr/webpack"],
+    };
+
     // лоадер для файлов стилей
     const cssLoaders = {
         test: /\.s[ac]ss$/i,
@@ -33,9 +40,22 @@ export function buildLoaders(isDev: boolean): RuleSetRule[] {
         exclude: /node_modules/,
     };
 
+    // загрузка картинок png, jpg, jpeg, gif
+    // можно добавить и шрифты
+    const fileLoader = {
+        test: /\.(png|jpe?g|gif|woff|woff2)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      }
+
     return [
         // лоадеры файлов выходящих за рамки расширения js
         // порядок лоадеров имеет значение
+        fileLoader,
+        svgLoader,
         typescriptLoader,
         cssLoaders,
     ];
