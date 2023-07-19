@@ -30,7 +30,7 @@ export function buildWebpackConfig({ isDev, paths, mode, port }: BuildOptions): 
         module: {
             rules: buildLoaders(isDev),
         },
-        resolve: buildResolvers(),
+        resolve: buildResolvers(paths),
         // создает соурсмэп чтобы сориентироваться в какой части бандла происходит ошибка
         // в проде не нужны
         devtool: isDev ? 'inline-source-map' : undefined,

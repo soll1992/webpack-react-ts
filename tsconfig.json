@@ -26,6 +26,11 @@
       // можно писать: import React from 'react'
       // для поддержки import в webpack.config
       "allowSyntheticDefaultImports": true,
+      // Для абсолютных импортов
+      "baseUrl": ".",
+      "paths": {
+        "*": ["./src/*"]
+      }
     },
     // для поддержки import в webpack.config
     "ts-node": {
