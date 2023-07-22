@@ -7,5 +7,7 @@ export function buildDevServer(port: BuildOptions['port']): DevServerConfigurati
         open: true,
         // фиксит проблему дев сервера, когда возвращается ошибка, если обновить страницу с роутом
         historyApiFallback: true,
+        // для hot module replacement
+        hot: true,
     }
 }

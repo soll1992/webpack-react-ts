@@ -2,7 +2,6 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { RuleSetRule } from "webpack";
 
 export function buildLoaders(isDev: boolean): RuleSetRule[] {
-
     // загрузка картинок svg
     const svgLoader = {
         test: /\.svg$/i,
@@ -45,17 +44,40 @@ export function buildLoaders(isDev: boolean): RuleSetRule[] {
     const fileLoader = {
         test: /\.(png|jpe?g|gif|woff|woff2)$/i,
         use: [
-          {
-            loader: 'file-loader',
-          },
+            {
+                loader: "file-loader",
+            },
         ],
-      }
+    };
+
+    // Бейбл лоадер
+    const babelLoader = {
+        test: /\.(jsx?|tsx?)$/,
+        exclude: /node_modules/,
+        use: {
+            loader: "babel-loader",
+            options: {
+                presets: ["@babel/preset-env"],
+                plugins: [
+                    [
+                        "i18next-extract",
+                        {
+                            locales: ["ru", "en"],
+                            keyAsDefaultValue: true,
+                        },
+                    ],
+                ],
+            },
+        },
+    };
 
     return [
         // лоадеры файлов выходящих за рамки расширения js
         // порядок лоадеров имеет значение
         fileLoader,
         svgLoader,
+        // бейбл лоадер должен быть добавлен до тс лоадера
+        babelLoader,
         typescriptLoader,
         cssLoaders,
     ];
