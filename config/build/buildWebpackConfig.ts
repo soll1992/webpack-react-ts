@@ -26,7 +26,7 @@ export function buildWebpackConfig({ isDev, paths, mode, port }: BuildOptions): 
             // очищение папки с билдом
             clean: true,
         },
-        plugins: buildPlugins(paths),
+        plugins: buildPlugins(paths, isDev),
         module: {
             rules: buildLoaders(isDev),
         },
