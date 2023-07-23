@@ -1,5 +1,7 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-// @ts-ignore
 // имитация задержки для suspense, убрать потом
-export const AboutPageAsync = lazy(() => new Promise((resolve) => setTimeout(() => resolve(import("./AboutPage")), 1500)));
+export const AboutPageAsync = lazy(() => new Promise((resolve) => {
+    // @ts-ignore
+    setTimeout(() => resolve(import('./AboutPage')), 1500);
+}));

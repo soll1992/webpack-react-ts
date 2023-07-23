@@ -1,8 +1,10 @@
-import { ProgressPlugin, WebpackPluginInstance, DefinePlugin, HotModuleReplacementPlugin } from "webpack";
-import HTMLWebpackPlugin from "html-webpack-plugin"
-import { BuildOptions } from "./types/config";
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import {
+    ProgressPlugin, WebpackPluginInstance, DefinePlugin, HotModuleReplacementPlugin,
+} from 'webpack';
+import HTMLWebpackPlugin from 'html-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { BuildOptions } from './types/config';
 
 export function buildPlugins({ html }: BuildOptions['paths'], isDev: boolean): WebpackPluginInstance[] {
     return [
@@ -19,10 +21,10 @@ export function buildPlugins({ html }: BuildOptions['paths'], isDev: boolean): W
         }),
         // плагин для прокидывания переменных из вебпак конфига
         new DefinePlugin({
-            __IS_DEV__: JSON.stringify(isDev)
+            __IS_DEV__: JSON.stringify(isDev),
         }),
         // плагины для Hot Module Replacement
         new ReactRefreshWebpackPlugin(),
         new HotModuleReplacementPlugin(),
-    ]
+    ];
 }
