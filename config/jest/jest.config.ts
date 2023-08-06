@@ -4,6 +4,8 @@
  * https://jestjs.io/docs/configuration
  */
 
+import path from 'path';
+
 export default {
     // All imported modules in your tests should be mocked automatically
     // automock: false,
@@ -27,11 +29,23 @@ export default {
     coveragePathIgnorePatterns: [
         '\\\\node_modules\\\\',
     ],
+    // Для поддержки абсолютных импортов в тесте
+    modulePaths: ['<rootDir>src'],
+
+    // Для react-testing-library
+    setupFilesAfterEnv: ['<rootDir>/config/jest/setupTests.ts'],
 
     // An array of directory names to be searched recursively up from the requiring module's location
     moduleDirectories: [
         'node_modules',
     ],
+
+    // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
+    moduleNameMapper: {
+        '\\.s?css$': 'identity-obj-proxy',
+        // мокает свг файлы для работы тестов
+        '\\.svg': path.resolve(__dirname, 'jestEmptyComponent.tsx'),
+    },
 
     // An array of file extensions your modules use
     moduleFileExtensions: [
@@ -97,9 +111,6 @@ export default {
     // maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number.
     // maxWorkers: 2 will use a maximum of 2 workers.
     // maxWorkers: "50%",
-
-    // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-    // moduleNameMapper: {},
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
     // modulePathIgnorePatterns: [],

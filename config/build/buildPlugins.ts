@@ -4,9 +4,13 @@ import {
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BuildOptions } from './types/config';
 
-export function buildPlugins({ html }: BuildOptions['paths'], isDev: boolean): WebpackPluginInstance[] {
+export function buildPlugins(
+    { html }: BuildOptions['paths'],
+    isDev: boolean,
+): WebpackPluginInstance[] {
     return [
         // подтягиваем html файл
         new HTMLWebpackPlugin({
@@ -26,5 +30,9 @@ export function buildPlugins({ html }: BuildOptions['paths'], isDev: boolean): W
         // плагины для Hot Module Replacement
         new ReactRefreshWebpackPlugin(),
         new HotModuleReplacementPlugin(),
+        // плагин для анализа размера бандла
+        new BundleAnalyzerPlugin({
+            openAnalyzer: false,
+        }),
     ];
 }

@@ -23,7 +23,8 @@ export function buildLoaders(isDev: boolean): RuleSetRule[] {
                     // на деве делаем более читаемые класснеймы для дебага
                     modules: {
                         auto: (resPath: string) => resPath.includes('.module.'),
-                        localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]',
+                        localIdentName: isDev
+                            ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]',
                     },
                 },
             },
